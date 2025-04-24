@@ -1,7 +1,12 @@
-import "./App.css";
+import MainLayout from "./features/common/MainLayout";
+import AppRoutes from "./shared/routes";
 
 function App() {
-  return <div>App</div>;
+  return (
+    <MainLayout>
+      <AppRoutes />
+    </MainLayout>
+  );
 }
 
 export default App;
