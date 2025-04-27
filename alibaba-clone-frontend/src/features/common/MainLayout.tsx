@@ -10,7 +10,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <>
       <Header />
-      <div style={{ minHeight: "85vh" }}>{children}</div>
+      <div style={{ minHeight: "84vh" }}>{children}</div>
       <Footer />
     </>
   );
