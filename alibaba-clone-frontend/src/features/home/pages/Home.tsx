@@ -17,7 +17,6 @@ const Home = () => {
       <br />
       <br />
       <br />
-      <br />
       <TransportSearch />
     </div>
   );
