@@ -16,7 +16,12 @@ const Header = () => {
         <ul className="flex space-x-4">
           <li>
             <Button variant="ghost" asChild>
-              <Link to="/" className="font-medium text-primary hover:text-primary/80">HOME</Link>
+              <Link
+                to="/"
+                className="font-medium text-primary hover:text-primary/80"
+              >
+                HOME
+              </Link>
             </Button>
           </li>
         </ul>

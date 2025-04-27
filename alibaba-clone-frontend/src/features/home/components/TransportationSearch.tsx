@@ -41,16 +41,16 @@ const TransportSearch = () => {
 
       {/* search form */}
       <form className="flex flex-wrap gap-4">
-        <div className="flex-1 min-w-[200px]">
+        <div className="flex-1 min-w-[250px]">
           <Input type="text" placeholder="From" />
         </div>
-        <div className="flex-1 min-w-[200px]">
+        <div className="flex-1 min-w-[250px]">
           <Input type="text" placeholder="To" />
         </div>
-        <div className="flex-1 min-w-[200px]">
+        <div className="flex-1 min-w-[150px]">
           <Input type="date" />
         </div>
-        <div className="flex-1 min-w-[200px]">
+        <div className="flex-1 min-w-[150px]">
           <Input type="date" />
         </div>
 
