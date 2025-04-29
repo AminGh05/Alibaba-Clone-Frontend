@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -10,9 +9,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PlaneTakeoff, Train, Bus } from "lucide-react";
+import CityDropdown from "./CityDropdown";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const TransportSearch = () => {
   const [activeTab, setActiveTab] = useState("flight");
+  const [fromCity, setFromCity] = useState<string>();
+  const [toCity, setToCity] = useState<string>();
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow">
@@ -42,16 +48,38 @@ const TransportSearch = () => {
       {/* search form */}
       <form className="flex flex-wrap gap-4">
         <div className="flex-1 min-w-[250px]">
-          <Input type="text" placeholder="From" />
+          <CityDropdown
+            placeholder="From"
+            value={fromCity}
+            onChange={setFromCity}
+            className="w-full"
+          />
         </div>
         <div className="flex-1 min-w-[250px]">
-          <Input type="text" placeholder="To" />
+          <CityDropdown
+            placeholder="To"
+            value={toCity}
+            onChange={setToCity}
+            className="w-full"
+          />
         </div>
-        <div className="flex-1 min-w-[150px]">
-          <Input type="date" />
+        <div className="flex-1 min-w-[150px] flex flex-col">
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            placeholderText="Start"
+            className="w-full h-9 rounded-md border px-3 py-1 text-base shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none"
+            dateFormat="MM/dd/yyyy"
+          />
         </div>
-        <div className="flex-1 min-w-[150px]">
-          <Input type="date" />
+        <div className="flex-1 min-w-[150px] flex flex-col">
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            placeholderText="End"
+            className="w-full h-9 rounded-md border px-3 py-1 text-base shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none"
+            dateFormat="MM/dd/yyyy"
+          />
         </div>
 
         {/* number of passengers */}
