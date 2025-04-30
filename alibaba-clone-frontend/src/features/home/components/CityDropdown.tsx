@@ -24,6 +24,9 @@ const CityDropdown = ({
 }: CityDropdownProps) => {
   const [cities, setCities] = useState<CityResult[]>([]);
 
+  {
+    /* load cities */
+  }
   useEffect(() => {
     const loadCities = async () => {
       try {
@@ -44,6 +47,8 @@ const CityDropdown = ({
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
+        <SelectItem key={null} value="null">*</SelectItem>
+        {/* map cities from api */}
         {cities.map((city) => (
           <SelectItem key={city.id} value={city.id.toString()}>
             {city.title}

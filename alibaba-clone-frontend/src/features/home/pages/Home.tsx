@@ -1,4 +1,4 @@
-import TransportSearch from "../components/TransportationSearch";
+import TransportationSearch from "../components/TransportationSearch";
 
 const Home = () => {
   return (
@@ -16,7 +16,7 @@ const Home = () => {
 
       <br />
       <br />
-      <TransportSearch />
+      <TransportationSearch />
     </div>
   );
 };

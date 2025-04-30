@@ -17,7 +17,7 @@ import { TransportationSearchResult } from "@/shared/models/transportation/Trans
 import { TransportationSearchRequest } from "@/shared/models/transportation/TransportationSearchRequest";
 import TransportationCard from "./TransportationCard";
 
-const TransportSearch = () => {
+const TransportationSearch = () => {
   const [activeTab, setActiveTab] = useState("flight");
   const [searchRes, setSearchRes] = useState<TransportationSearchResult[]>([]);
   const [searchReq, setSearchReq] = useState<TransportationSearchRequest>({
@@ -30,8 +30,13 @@ const TransportSearch = () => {
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await searchTransportations(searchReq);
-    setSearchRes(response.data);
+    try {
+      const response = await searchTransportations(searchReq);
+      setSearchRes(response.data);
+    } catch (err) {
+      console.log("Search Failed:", err);
+      setSearchRes([])
+    }
   };
 
   // update vehicleTypeId based on activeTab
@@ -42,7 +47,10 @@ const TransportSearch = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow">
+    <div
+      className="bg-white p-6 rounded-lg shadow"
+      style={{ marginBottom: "5vh" }}
+    >
       {/* transportation types */}
       <Tabs
         defaultValue="flight"
@@ -133,8 +141,8 @@ const TransportSearch = () => {
         </Button>
       </form>
 
-      {/* Search Results */}
-      {searchRes.length > 0 && (
+      {/* search results */}
+      {searchRes.length > 0 ? (
         <div className="mt-6">
           <h3 className="text-lg font-semibold mb-4">
             Available Transportations
@@ -145,9 +153,11 @@ const TransportSearch = () => {
             ))}
           </div>
         </div>
+      ) : (
+        searchRes.length === 0 && <div></div>
       )}
     </div>
   );
 };
 
-export default TransportSearch;
+export default TransportationSearch;
