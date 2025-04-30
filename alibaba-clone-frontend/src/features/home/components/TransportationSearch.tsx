@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,13 +12,34 @@ import { PlaneTakeoff, Train, Bus } from "lucide-react";
 import CityDropdown from "./CityDropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { searchTransportations } from "@/api/home/homeApi";
+import { TransportationSearchResult } from "@/shared/models/transportation/TransportationSearchResult";
+import { TransportationSearchRequest } from "@/shared/models/transportation/TransportationSearchRequest";
+import TransportationCard from "./TransportationCard";
 
 const TransportSearch = () => {
   const [activeTab, setActiveTab] = useState("flight");
-  const [fromCity, setFromCity] = useState<string>();
-  const [toCity, setToCity] = useState<string>();
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [searchRes, setSearchRes] = useState<TransportationSearchResult[]>([]);
+  const [searchReq, setSearchReq] = useState<TransportationSearchRequest>({
+    vehicleTypeId: 1,
+    fromCityId: undefined,
+    toCityId: undefined,
+    startDate: undefined,
+    endDate: undefined,
+  });
+
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await searchTransportations(searchReq);
+    setSearchRes(response.data);
+  };
+
+  // update vehicleTypeId based on activeTab
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    const vehicleTypeId = value === "flight" ? 1 : value === "train" ? 2 : 3;
+    setSearchReq((prev) => ({ ...prev, vehicleTypeId }));
+  };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow">
@@ -26,7 +47,7 @@ const TransportSearch = () => {
       <Tabs
         defaultValue="flight"
         value={activeTab}
-        onValueChange={setActiveTab}
+        onValueChange={handleTabChange}
         className="mb-6"
       >
         <TabsList className="w-full">
@@ -46,27 +67,36 @@ const TransportSearch = () => {
       </Tabs>
 
       {/* search form */}
-      <form className="flex flex-wrap gap-4">
+      <form className="flex flex-wrap gap-4" onSubmit={handleSearch}>
         <div className="flex-1 min-w-[250px]">
           <CityDropdown
             placeholder="From"
-            value={fromCity}
-            onChange={setFromCity}
+            value={searchReq.fromCityId?.toString()}
+            onChange={(value) =>
+              setSearchReq({ ...searchReq, fromCityId: parseInt(value) })
+            }
             className="w-full"
           />
         </div>
         <div className="flex-1 min-w-[250px]">
           <CityDropdown
             placeholder="To"
-            value={toCity}
-            onChange={setToCity}
+            value={searchReq.toCityId?.toString()}
+            onChange={(value) =>
+              setSearchReq({ ...searchReq, toCityId: parseInt(value) })
+            }
             className="w-full"
           />
         </div>
         <div className="flex-1 min-w-[150px] flex flex-col">
           <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            selected={searchReq.startDate}
+            onChange={(date: Date | null) =>
+              setSearchReq((prev) => ({
+                ...prev,
+                startDate: date ?? undefined,
+              }))
+            }
             placeholderText="Start"
             className="w-full h-9 rounded-md border px-3 py-1 text-base shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none"
             dateFormat="MM/dd/yyyy"
@@ -74,8 +104,10 @@ const TransportSearch = () => {
         </div>
         <div className="flex-1 min-w-[150px] flex flex-col">
           <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
+            selected={searchReq.endDate}
+            onChange={(date: Date | null) =>
+              setSearchReq((prev) => ({ ...prev, endDate: date ?? undefined }))
+            }
             placeholderText="End"
             className="w-full h-9 rounded-md border px-3 py-1 text-base shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none"
             dateFormat="MM/dd/yyyy"
@@ -96,10 +128,24 @@ const TransportSearch = () => {
           </SelectContent>
         </Select>
 
-        <Button size="lg" className="px-8">
+        <Button size="lg" className="px-8" type="submit">
           Search
         </Button>
       </form>
+
+      {/* Search Results */}
+      {searchRes.length > 0 && (
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold mb-4">
+            Available Transportations
+          </h3>
+          <div className="space-y-4">
+            {searchRes.map((transport) => (
+              <TransportationCard transport={transport} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

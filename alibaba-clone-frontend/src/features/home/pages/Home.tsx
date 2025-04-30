@@ -5,7 +5,7 @@ const Home = () => {
     <div
       id="home"
       className="p-4 flex flex-col items-center justify-center"
-      style={{ paddingTop: "60px" }}
+      style={{ paddingTop: "50px" }}
     >
       <h1 className="mb-4 text-3xl font-bold text-center">
         Welcome to Alibaba
@@ -14,7 +14,6 @@ const Home = () => {
         Your trusted travel companion
       </p>
 
-      <br />
       <br />
       <br />
       <TransportSearch />
