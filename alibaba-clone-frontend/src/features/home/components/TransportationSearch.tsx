@@ -136,7 +136,7 @@ const TransportationSearch = () => {
           </SelectContent>
         </Select>
 
-        <Button size="lg" className="px-8" type="submit">
+        <Button size="lg" className="px-8 h-9" type="submit">
           Search
         </Button>
       </form>
