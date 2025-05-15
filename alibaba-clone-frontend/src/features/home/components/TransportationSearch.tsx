@@ -35,7 +35,7 @@ const TransportationSearch = () => {
       setSearchRes(response.data);
     } catch (err) {
       console.log("Search Failed:", err);
-      setSearchRes([])
+      setSearchRes([]);
     }
   };
 
@@ -149,7 +149,7 @@ const TransportationSearch = () => {
           </h3>
           <div className="space-y-4">
             {searchRes.map((transport) => (
-              <TransportationCard transport={transport} />
+              <TransportationCard transport={transport} key={transport.id} />
             ))}
           </div>
         </div>
