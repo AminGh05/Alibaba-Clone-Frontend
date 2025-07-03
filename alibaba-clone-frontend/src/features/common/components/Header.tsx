@@ -26,6 +26,13 @@ const Header = () => {
             </Button>
           </>
         )}
+        {user && (
+          <>
+            <Button asChild variant={"default"}>
+              <Link to="/profile">Profile</Link>
+            </Button>
+          </>
+        )}
       </div>
     </header>
   );
