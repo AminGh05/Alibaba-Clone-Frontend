@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/shared/store/authStore";
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
+  const navigate = useNavigate();
 
   return (
     <header className="flex items-center justify-between p-4 border-b">
@@ -28,7 +29,14 @@ const Header = () => {
         )}
         {user && (
           <>
-            <Button asChild variant={"default"}>
+            <Button
+              asChild
+              variant="outline"
+              onClick={() => useAuthStore.getState().logout()}
+            >
+              <Link to="/">Logout</Link>
+            </Button>
+            <Button asChild variant="default">
               <Link to="/profile">Profile</Link>
             </Button>
           </>

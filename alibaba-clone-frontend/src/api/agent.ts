@@ -23,7 +23,8 @@ agent.interceptors.response.use(
   (res) => res,
   (error) => {
     if (error.response?.status === 401) {
-      useAuthStore.getState().logout(); // Optionally, redirect to login page here
+      useAuthStore.getState().logout();
+      window.location.href = "/login"; // redirect to login
     }
     return Promise.reject(error);
   }
