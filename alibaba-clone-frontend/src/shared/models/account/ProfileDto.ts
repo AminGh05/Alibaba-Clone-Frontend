@@ -7,7 +7,7 @@ export interface ProfileDto {
     lastName: string;
     idNumber: string;
     personPhoneNumber: string;
-    birthDate: string | null;
+    birthDate: Date | string | null;
 
     iban: string;
     bankAccountNumber: string;
