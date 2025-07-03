@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuthStore } from "@/shared/store/authStore";
-import { login as loginReq } from "@/api/authentication/authApi";
+import { login as loginReq } from "@/api/features/authApi";
 import { LoginRequestDto } from "@/shared/models/authentication/LoginRequestDto";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

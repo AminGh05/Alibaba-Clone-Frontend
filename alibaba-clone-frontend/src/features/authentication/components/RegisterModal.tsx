@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/shared/store/authStore";
-import { register as registerReq } from "@/api/authentication/authApi";
+import { register as registerReq } from "@/api/features/authApi";
 import { RegisterRequestDto } from "@/shared/models/authentication/RegisterRequestDto";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";

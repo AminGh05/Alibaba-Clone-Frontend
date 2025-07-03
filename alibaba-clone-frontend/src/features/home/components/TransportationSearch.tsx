@@ -12,7 +12,7 @@ import { PlaneTakeoff, Train, Bus } from "lucide-react";
 import CityDropdown from "./CityDropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { searchTransportations } from "@/api/home/homeApi";
+import { searchTransportations } from "@/api/features/homeApi";
 import { TransportationSearchResult } from "@/shared/models/transportation/TransportationSearchResult";
 import { TransportationSearchRequest } from "@/shared/models/transportation/TransportationSearchRequest";
 import TransportationCard from "./TransportationCard";

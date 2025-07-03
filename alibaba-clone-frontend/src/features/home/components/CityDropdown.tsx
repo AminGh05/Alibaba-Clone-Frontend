@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { getCities } from "@/api/home/homeApi";
+import { getCities } from "@/api/features/homeApi";
 import { CityResult } from "@/shared/models/city/CityResult";
 
 interface CityDropdownProps {
