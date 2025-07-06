@@ -41,7 +41,7 @@ export const getMyTravels = async () => {
 }
 
 export const getMyTransactions = async () => {
-    return await agent.get<TransactionDto>("/Account/my-transactions");
+    return await agent.get<TransactionDto[]>("/Account/my-transactions");
 }
 
 export const topUp = async (data: TopUpDto) => {
