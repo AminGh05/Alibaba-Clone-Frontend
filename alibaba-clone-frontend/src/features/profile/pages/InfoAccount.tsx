@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import BankAccountCard from "../components/BankAccountCard";
 import { ProfileDto } from "@/shared/models/account/ProfileDto";
@@ -19,9 +18,7 @@ import {
 
 const InfoAccount = () => {
   const [profile, setProfile] = useState<ProfileDto | null>(null);
-  const [bankAccount, setBankAccount] = useState<UpsertBankAccountDto | null>(
-    null
-  );
+  const [bankAccount, setBankAccount] = useState<UpsertBankAccountDto | null>(null);
   const [editProfileOpen, setEditProfileOpen] = useState(false);
   const [editEmailOpen, setEditEmailOpen] = useState(false);
   const [editPasswordOpen, setEditPasswordOpen] = useState(false);
