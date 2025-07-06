@@ -51,12 +51,10 @@ const InfoAccount = () => {
         lastName: data.lastName ?? profile.lastName,
         idNumber: (profile as any).idNumber ?? "",
         genderId: (profile as any).genderId ?? 1,
-        phoneNumber:
-          data.personPhoneNumber ?? (profile as any).phoneNumber ?? "",
-        birthDate: data.birthDate
-          ? String(data.birthDate)
-          : (profile as any).birthDate ?? "",
+        phoneNumber: data.personPhoneNumber ?? (profile as any).phoneNumber ?? "",
+        birthDate: data.birthDate ? String(data.birthDate) : (profile as any).birthDate ?? "",
       };
+      
       await upsertAccountPerson(person);
       setProfile((prev) => (prev ? { ...prev, ...data } : prev));
       setEditProfileOpen(false);

@@ -1,4 +1,5 @@
 import InfoAccount from "./InfoAccount";
+import InfoPeople from "./InfoPeople";
 import InfoTransactions from "./InfoTransactions";
 import InfoTravels from "./InfoTravels";
 import { useState } from "react";
@@ -7,6 +8,7 @@ const tabs = [
   { label: "Account", component: <InfoAccount /> },
   { label: "Transactions", component: <InfoTransactions /> },
   { label: "Travels", component: <InfoTravels /> },
+  { label: "People", component: <InfoPeople /> }
 ];
 
 const Profile = () => {

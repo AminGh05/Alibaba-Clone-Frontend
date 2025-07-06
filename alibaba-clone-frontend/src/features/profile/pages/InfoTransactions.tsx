@@ -41,18 +41,16 @@ const InfoTransactions = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="bg-white rounded-lg shadow p-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
-          <div className="text-lg font-semibold text-gray-800">
-            Current Balance:{" "}
-            <span className="text-blue-700">{balance.toLocaleString()} $</span>
-          </div>
-          <Button variant="outline" className="w-fit">
-            <Link to={"top-up"} className="text-blue-700 font-medium">
-              Increase Balance
-            </Link>
-          </Button>
+      <div className="bg-white rounded-lg shadow px-6 py-4 min-h-[64px] flex items-center justify-between">
+        <div className="text-lg font-semibold text-gray-800 flex items-center">
+          Current Balance:{" "}
+          <span className="text-blue-700 ml-1">{balance.toLocaleString()} $</span>
         </div>
+        <Button variant="outline" className="w-fit flex items-center h-10">
+          <Link to={"top-up"} className="text-blue-700 font-medium flex items-center h-full">
+            Increase Balance
+          </Link>
+        </Button>
       </div>
       {loading ? (
         <div className="text-gray-500">Loading...</div>
