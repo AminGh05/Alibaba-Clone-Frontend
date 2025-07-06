@@ -1,8 +1,8 @@
 import { Card } from '@/components/ui/card';
-import { TicketOrderSummaryDto } from '@/shared/models/transaction/TicketOrderSummaryDto';
+import { TransactionDto } from '@/shared/models/transaction/TransactionDto';
 
 interface TransactionHistoryProps {
-  transactions: TicketOrderSummaryDto[];
+  transactions: TransactionDto[];
 }
 
 const TransactionHistory = ({ transactions }: TransactionHistoryProps) => {
@@ -17,24 +17,18 @@ const TransactionHistory = ({ transactions }: TransactionHistoryProps) => {
             <thead>
               <tr className="bg-gray-100">
                 <th className="px-2 py-1 text-left">Serial Number</th>
-                <th className="px-2 py-1 text-left">Bought At</th>
-                <th className="px-2 py-1 text-left">Price</th>
-                <th className="px-2 py-1 text-left">From</th>
-                <th className="px-2 py-1 text-left">To</th>
-                <th className="px-2 py-1 text-left">Company</th>
-                <th className="px-2 py-1 text-left">Vehicle</th>
+                <th className="px-2 py-1 text-left">Created At</th>
+                <th className="px-2 py-1 text-left">Final Amount</th>
+                <th className="px-2 py-1 text-left">Type</th>
               </tr>
             </thead>
             <tbody>
               {transactions.map((tx) => (
                 <tr key={tx.id} className="border-b">
                   <td className="px-2 py-1">{tx.serialNumber}</td>
-                  <td className="px-2 py-1">{new Date(tx.boughtAt).toLocaleDateString()}</td>
-                  <td className="px-2 py-1">{tx.price}</td>
-                  <td className="px-2 py-1">{tx.fromCity}</td>
-                  <td className="px-2 py-1">{tx.toCity}</td>
-                  <td className="px-2 py-1">{tx.companyName}</td>
-                  <td className="px-2 py-1">{tx.vehicleName}</td>
+                  <td className="px-2 py-1">{new Date(tx.createdAt).toLocaleDateString()}</td>
+                  <td className="px-2 py-1">{tx.finalAmount}</td>
+                  <td className="px-2 py-1">{tx.transactionType}</td>
                 </tr>
               ))}
             </tbody>
