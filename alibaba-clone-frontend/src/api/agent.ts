@@ -10,7 +10,7 @@ const agent = axios.create({
 
 // add a request interceptor to include JWT token if available
 agent.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().token;
+  const token = useAuthStore.getState().user?.token;
   if (token) {
     config.headers = config.headers || {};
     config.headers["Authorization"] = `Bearer ${token}`;
