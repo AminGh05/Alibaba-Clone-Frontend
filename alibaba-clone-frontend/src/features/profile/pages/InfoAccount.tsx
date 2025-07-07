@@ -23,6 +23,7 @@ const InfoAccount = () => {
   const [editEmailOpen, setEditEmailOpen] = useState(false);
   const [editPasswordOpen, setEditPasswordOpen] = useState(false);
   const [editBankOpen, setEditBankOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -37,20 +38,22 @@ const InfoAccount = () => {
         });
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProfile();
   }, []);
 
-  const handleEditProfile = async (data: Partial<ProfileDto>) => {
+  const handleEditProfile = async (data: Partial<ProfileDto>, genderId: number) => {
     setError(null);
     try {
       if (!profile) throw new Error("No profile");
       const person: PersonDto = {
         firstName: data.firstName ?? profile.firstName,
         lastName: data.lastName ?? profile.lastName,
-        idNumber: (profile as any).idNumber ?? "",
-        genderId: (profile as any).genderId ?? 1,
+        idNumber: data.idNumber ?? (profile as any).idNumber,
+        genderId: genderId ?? 1,
         phoneNumber: data.personPhoneNumber ?? (profile as any).phoneNumber ?? "",
         birthDate: data.birthDate ? String(data.birthDate) : (profile as any).birthDate ?? "",
       };
@@ -114,6 +117,13 @@ const InfoAccount = () => {
       setError("Failed to update bank account");
     }
   };
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-64 text-gray-500 text-lg font-semibold">
+        Loading...
+      </div>
+    )
 
   if (!profile)
     return (
