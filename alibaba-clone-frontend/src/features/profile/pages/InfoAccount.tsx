@@ -45,15 +45,15 @@ const InfoAccount = () => {
     fetchProfile();
   }, []);
 
-  const handleEditProfile = async (data: Partial<ProfileDto>) => {
+  const handleEditProfile = async (data: Partial<ProfileDto>, genderId: number) => {
     setError(null);
     try {
       if (!profile) throw new Error("No profile");
       const person: PersonDto = {
         firstName: data.firstName ?? profile.firstName,
         lastName: data.lastName ?? profile.lastName,
-        idNumber: (profile as any).idNumber ?? "",
-        genderId: (profile as any).genderId ?? 1,
+        idNumber: data.idNumber ?? (profile as any).idNumber,
+        genderId: genderId ?? 1,
         phoneNumber: data.personPhoneNumber ?? (profile as any).phoneNumber ?? "",
         birthDate: data.birthDate ? String(data.birthDate) : (profile as any).birthDate ?? "",
       };
