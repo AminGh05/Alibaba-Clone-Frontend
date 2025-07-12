@@ -7,6 +7,7 @@ import { PersonDto } from "@/shared/models/account/PersonDto";
 import { TicketOrderSummaryDto } from "@/shared/models/transaction/TicketOrderSummaryDto";
 import { TransactionDto } from "@/shared/models/transaction/TransactionDto";
 import { TopUpDto } from "@/shared/models/transaction/TopUpDto";
+import { TravelerTicketDto } from "@/shared/models/transportation/TravelerTicketDto";
 
 export const getProfile = async () => {
     return await agent.get<ProfileDto>("/Account/profile");
@@ -46,4 +47,8 @@ export const getMyTransactions = async () => {
 
 export const topUp = async (data: TopUpDto) => {
     return await agent.post<number>("/Account/top-up", data);
+}
+
+export const getTravelDetails = async (ticketOrderId: number) => {
+    return await agent.get<TravelerTicketDto[]>(`Account/my-travels/${ticketOrderId}`);
 }
