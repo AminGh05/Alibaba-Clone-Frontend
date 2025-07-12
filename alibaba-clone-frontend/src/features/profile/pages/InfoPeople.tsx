@@ -1,4 +1,4 @@
-import { getMyPeople, upsertPerson } from "@/api/features/profileApi";
+import { getMyPeople, upsertPerson } from "@/api/features/accountApi";
 import { Button } from "@/components/ui/button";
 import { ProfileDto } from "@/shared/models/account/ProfileDto";
 import { useEffect, useState } from "react";

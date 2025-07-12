@@ -1,4 +1,4 @@
-import { getMyTravels } from "@/api/features/profileApi";
+import { getMyTravels } from "@/api/features/accountApi";
 import { TicketOrderSummaryDto } from "@/shared/models/transaction/TicketOrderSummaryDto";
 import { useEffect, useState } from "react";
 

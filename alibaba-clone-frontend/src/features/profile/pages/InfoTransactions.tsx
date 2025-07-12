@@ -2,7 +2,7 @@ import {
   getMyTransactions,
   getProfile,
   topUp,
-} from "@/api/features/profileApi";
+} from "@/api/features/accountApi";
 import { useEffect, useState } from "react";
 import TransactionHistory from "../components/TransactionHistory";
 import { Button } from "@/components/ui/button";

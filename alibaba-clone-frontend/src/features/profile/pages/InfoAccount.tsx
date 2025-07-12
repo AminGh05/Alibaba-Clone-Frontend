@@ -14,7 +14,7 @@ import {
   editPassword,
   upsertBankAccountDetails,
   upsertAccountPerson,
-} from "@/api/features/profileApi";
+} from "@/api/features/accountApi";
 
 const InfoAccount = () => {
   const [profile, setProfile] = useState<ProfileDto | null>(null);
