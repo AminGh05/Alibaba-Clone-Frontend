@@ -3,6 +3,7 @@ import Register from "@/features/authentication/pages/Register";
 import NotFound from "@/features/error/pages/NotFound";
 import Home from "@/features/home/pages/Home";
 import Profile from "@/features/profile/pages/Profile";
+import TravelDetails from "@/features/profile/pages/TravelDetails";
 import { Route, Routes } from "react-router-dom";
 
 const AppRoutes = () => {
@@ -12,6 +13,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/travel/:ticketOrderId" element={<TravelDetails />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
