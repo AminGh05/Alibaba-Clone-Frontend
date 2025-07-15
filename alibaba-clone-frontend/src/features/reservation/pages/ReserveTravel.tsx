@@ -1,0 +1,168 @@
+import { getTransportation, getSeats } from "@/api/features/reserveApi";
+import { getMyPeople } from "@/api/features/accountApi";
+import { TransportationSearchResult } from "@/shared/models/transportation/TransportationSearchResult";
+import { TransportationSeatDto } from "@/shared/models/transportation/TransportationSeatDto";
+import { ProfileDto } from "@/shared/models/account/ProfileDto";
+import { useAuthStore } from "@/shared/store/authStore";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+
+const ReserveTravel = () => {
+  const navigate = useNavigate();
+  const user = useAuthStore();
+  const { transportationId } = useParams<{ transportationId: string }>();
+  const [details, setDetails] = useState<TransportationSearchResult | null>(null);
+  const [seats, setSeats] = useState<TransportationSeatDto[]>([]);
+  const [people, setPeople] = useState<ProfileDto[]>([]);
+  const [passengers, setPassengers] = useState<any[]>([]);
+  const [selectedPersonId, setSelectedPersonId] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    setLoading(true);
+    // load all from server and make sure all of them are loaded
+    Promise.all([getTransportation(Number(transportationId)), getSeats(Number(transportationId)), getMyPeople()])
+      .then(([transportRes, seatsRes, peopleRes]) => {
+        setDetails(transportRes.data);
+        setSeats(seatsRes.data);
+        setPeople(peopleRes.data);
+      })
+      .finally(() => setLoading(false));
+  }, [transportationId, user, navigate]);
+
+  // automatically choose an available seat
+  const getNextAvailableSeat = () => {
+    return seats.find((seat) => seat.isAvailable && !passengers.some((p) => p.seatId === seat.id));
+  };
+
+  const handleAddPassenger = () => {
+    if (!selectedPersonId) return;
+
+    // check if the person is already in passengers
+    const person = people.find((p) => p.idNumber === selectedPersonId);
+    if (passengers.includes(person)) return;
+    
+    const seat = getNextAvailableSeat();
+    if (!person || !seat) return;
+    setPassengers([
+      ...passengers,
+      {
+        person,
+        seatId: seat.id,
+        seatNumber: `${seat.row}-${seat.column}`,
+      },
+    ]);
+    setSelectedPersonId("");
+  };
+
+  if (loading || !details) {
+    return <div className="flex justify-center items-center h-96 text-lg">Loading...</div>;
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto py-10 flex flex-col gap-8">
+      {/* Travel Info Card */}
+      <Card className="shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">Travel Information</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 gap-4">
+          <div>
+            <Label>Company</Label>
+            <div className="font-semibold">{details.companyTitle}</div>
+          </div>
+          <div>
+            <Label>From</Label>
+            <div>
+              {details.fromCityTitle} ({details.fromLocationTitle})
+            </div>
+          </div>
+          <div>
+            <Label>To</Label>
+            <div>
+              {details.toCityTitle} ({details.toLocationTitle})
+            </div>
+          </div>
+          <div>
+            <Label>Date & Time</Label>
+            <div>
+              {new Date(details.startDateTime).toLocaleString()} - {new Date(details.endDateTime).toLocaleString()}
+            </div>
+          </div>
+          <div>
+            <Label>Price</Label>
+            <div className="text-primary font-semibold">{details.price} $</div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Passenger Form Card */}
+      <Card className="shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold">Add Passenger</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4">
+          <Label htmlFor="person">Select Person</Label>
+          <Select value={selectedPersonId} onValueChange={setSelectedPersonId}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Choose from your people" />
+            </SelectTrigger>
+            <SelectContent>
+              {people.map((person) => (
+                <SelectItem key={person.idNumber} value={person.idNumber}>
+                  {person.firstName} {person.lastName} ({person.idNumber})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button
+            onClick={handleAddPassenger}
+            disabled={!selectedPersonId || !getNextAvailableSeat()}
+            className="mt-2 w-full"
+          >
+            Add Passenger
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* List of Added Passengers */}
+      {passengers.length > 0 && (
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-xl font-bold">Passengers</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <table className="min-w-full text-sm">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="px-2 py-1 text-left">Name</th>
+                  <th className="px-2 py-1 text-left">ID Number</th>
+                  <th className="px-2 py-1 text-left">Seat</th>
+                </tr>
+              </thead>
+              <tbody>
+                {passengers.map((p, idx) => (
+                  <tr key={idx} className="border-b">
+                    <td className="px-2 py-1">{p.person.firstName} {p.person.lastName}</td>
+                    <td className="px-2 py-1">{p.person.idNumber}</td>
+                    <td className="px-2 py-1">{p.seatNumber}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+};
+
+export default ReserveTravel;
