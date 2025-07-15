@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 
 const ReserveTravel = () => {
   const navigate = useNavigate();
-  const user = useAuthStore();
+  const user = useAuthStore((state) => state.user);
   const { transportationId } = useParams<{ transportationId: string }>();
   const [details, setDetails] = useState<TransportationSearchResult | null>(null);
   const [seats, setSeats] = useState<TransportationSeatDto[]>([]);
@@ -23,7 +23,7 @@ const ReserveTravel = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
+    if (user == null) {
       navigate("/login");
       return;
     }
@@ -49,7 +49,7 @@ const ReserveTravel = () => {
     // check if the person is already in passengers
     const person = people.find((p) => p.idNumber === selectedPersonId);
     if (passengers.includes(person)) return;
-    
+
     const seat = getNextAvailableSeat();
     if (!person || !seat) return;
     setPassengers([
@@ -61,6 +61,14 @@ const ReserveTravel = () => {
       },
     ]);
     setSelectedPersonId("");
+  };
+
+  const handleRemovePassenger = (idx: number) => {
+    setPassengers(passengers.filter((_, i) => i !== idx));
+  };
+
+  const handlePlaceOrder = () => {
+    
   };
 
   if (loading || !details) {
@@ -76,10 +84,6 @@ const ReserveTravel = () => {
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4">
           <div>
-            <Label>Company</Label>
-            <div className="font-semibold">{details.companyTitle}</div>
-          </div>
-          <div>
             <Label>From</Label>
             <div>
               {details.fromCityTitle} ({details.fromLocationTitle})
@@ -90,6 +94,10 @@ const ReserveTravel = () => {
             <div>
               {details.toCityTitle} ({details.toLocationTitle})
             </div>
+          </div>
+          <div>
+            <Label>Company</Label>
+            <div className="font-semibold">{details.companyTitle}</div>
           </div>
           <div>
             <Label>Date & Time</Label>
@@ -130,37 +138,51 @@ const ReserveTravel = () => {
           >
             Add Passenger
           </Button>
+
+          {/* List of Added Passengers */}
+          {passengers.length > 0 && (
+            <>
+              <h3 className="text-xl font-bold">Passengers</h3>
+              <table className="min-w-full text-sm">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="px-2 py-1 text-left">Name</th>
+                    <th className="px-2 py-1 text-left">ID Number</th>
+                    <th className="px-2 py-1 text-left">Seat</th>
+                    <th className="px-2 py-1 text-left"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {passengers.map((p, idx) => (
+                    <tr key={idx} className="border-b">
+                      <td className="px-2 py-1">
+                        {p.person.firstName} {p.person.lastName}
+                      </td>
+                      <td className="px-2 py-1">{p.person.idNumber}</td>
+                      <td className="px-2 py-1">{p.seatNumber}</td>
+                      <td
+                        className="px-2 py-1 cursor-pointer hover:underline"
+                        onClick={() => handleRemovePassenger(idx)}
+                        title="Remove passenger"
+                      >
+                        Remove
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
         </CardContent>
       </Card>
-
-      {/* List of Added Passengers */}
-      {passengers.length > 0 && (
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold">Passengers</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="px-2 py-1 text-left">Name</th>
-                  <th className="px-2 py-1 text-left">ID Number</th>
-                  <th className="px-2 py-1 text-left">Seat</th>
-                </tr>
-              </thead>
-              <tbody>
-                {passengers.map((p, idx) => (
-                  <tr key={idx} className="border-b">
-                    <td className="px-2 py-1">{p.person.firstName} {p.person.lastName}</td>
-                    <td className="px-2 py-1">{p.person.idNumber}</td>
-                    <td className="px-2 py-1">{p.seatNumber}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </CardContent>
-        </Card>
-      )}
+      <div className="flex items-center justify-between bg-gray-50 rounded-lg px-6 py-4 mt-6 shadow">
+        <span className="text-lg font-semibold">
+          Total Price: <span className="text-primary">{details.price * passengers.length} $</span>
+        </span>
+        <Button onClick={handlePlaceOrder} className="ml-4">
+          Place Order
+        </Button>
+      </div>
     </div>
   );
 };
