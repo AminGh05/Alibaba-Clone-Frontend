@@ -1,19 +1,19 @@
-import { getTransportation, getSeats, createOrder } from "@/api/features/reserveApi";
-import { getMyPeople } from "@/api/features/accountApi";
-import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
-import { TransportationSeatDto } from "@/shared/models/transportation/TransportationSeatDto";
-import { useAuthStore } from "@/shared/store/authStore";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAuthStore } from "@/shared/store/authStore";
+import { getTransportation, getSeats, createOrder } from "@/api/features/reserveApi";
+import { getMyPeople } from "@/api/features/accountApi";
+import SuccessOrder from "../components/SuccessOrder";
+import FailureOrder from "../components/FailureOrder";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { TransportationSeatDto } from "@/shared/models/transportation/TransportationSeatDto";
 import { PersonDto } from "@/shared/models/account/PersonDto";
+import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
 import { CreateTravelerTicketDto } from "@/shared/models/transportation/CreateTravelerTicketDto";
 import { CreateTicketOrderDto } from "@/shared/models/transportation/CreateTicketOrderDto";
-import SuccessOrder from "../components/SuccessOrder";
-import FailureOrder from "../components/FailureOrder";
 
 const ReserveTravel = () => {
   const navigate = useNavigate();
@@ -122,7 +122,7 @@ const ReserveTravel = () => {
   if (isDone) {
     console.log("isDone is true, success:", success);
     if (success) {
-      return <SuccessOrder onClose={() => navigate("/profile")}/>;
+      return <SuccessOrder onClose={() => navigate("/profile")} />;
     } else {
       return <FailureOrder onClose={() => setIsDone(false)} />;
     }
