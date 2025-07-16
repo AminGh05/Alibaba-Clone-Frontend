@@ -1,5 +1,5 @@
-import { CreateTicketOrderDto } from "@/shared/models/transportation/CreateTicketOrderDto";
 import agent from "../agent";
+import { CreateTicketOrderDto } from "@/shared/models/transportation/CreateTicketOrderDto";
 import { TransportationSeatDto } from "@/shared/models/transportation/TransportationSeatDto";
 import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
 
