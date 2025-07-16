@@ -1,29 +1,15 @@
 import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 interface EditPasswordModalProps {
   open: boolean;
   onClose: () => void;
-  onSave: (
-    oldPassword: string,
-    newPassword: string,
-    confirmNewPassword: string
-  ) => void;
+  onSave: (oldPassword: string, newPassword: string, confirmNewPassword: string) => void;
 }
 
-const EditPasswordModal = ({
-  open,
-  onClose,
-  onSave,
-}: EditPasswordModalProps) => {
+const EditPasswordModal = ({ open, onClose, onSave }: EditPasswordModalProps) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");

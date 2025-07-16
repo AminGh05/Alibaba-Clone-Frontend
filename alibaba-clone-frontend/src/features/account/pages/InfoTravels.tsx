@@ -1,7 +1,7 @@
-import { getMyTravels } from "@/api/features/accountApi";
-import { TicketOrderSummaryDto } from "@/shared/models/transaction/TicketOrderSummaryDto";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getMyTravels } from "@/api/features/accountApi";
+import { TicketOrderSummaryDto } from "@/shared/models/transaction/TicketOrderSummaryDto";
 
 const InfoTravels = () => {
   const [travels, setTravels] = useState<TicketOrderSummaryDto[]>([]);

@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -16,12 +10,7 @@ interface EditEmailModalProps {
   onSave: (email: string) => void;
 }
 
-const EditEmailModal = ({
-  open,
-  onClose,
-  currentEmail,
-  onSave,
-}: EditEmailModalProps) => {
+const EditEmailModal = ({ open, onClose, currentEmail, onSave }: EditEmailModalProps) => {
   const [email, setEmail] = useState(currentEmail);
 
   useEffect(() => {

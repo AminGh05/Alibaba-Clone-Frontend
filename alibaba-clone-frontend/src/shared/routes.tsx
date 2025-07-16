@@ -2,8 +2,8 @@ import Login from "@/features/authentication/pages/Login";
 import Register from "@/features/authentication/pages/Register";
 import NotFound from "@/features/error/pages/NotFound";
 import Home from "@/features/home/pages/Home";
-import Profile from "@/features/profile/pages/Profile";
-import TravelDetails from "@/features/profile/pages/TravelDetails";
+import Profile from "@/features/account/pages/Profile";
+import TravelDetails from "@/features/account/pages/TravelDetails";
 import ReserveTravel from "@/features/reservation/pages/ReserveTravel";
 import { Route, Routes } from "react-router-dom";
 

@@ -1,9 +1,9 @@
-import { getMyPeople, upsertPerson } from "@/api/features/accountApi";
-import { Button } from "@/components/ui/button";
-import { ProfileDto } from "@/shared/models/account/ProfileDto";
 import { useEffect, useState } from "react";
+import { getMyPeople, upsertPerson } from "@/api/features/accountApi";
 import PeopleList from "../components/PeopleList";
 import EditProfileModal from "../components/EditProfileModal";
+import { Button } from "@/components/ui/button";
+import { ProfileDto } from "@/shared/models/account/ProfileDto";
 import { PersonDto } from "@/shared/models/account/PersonDto";
 
 const InfoPeople = () => {
@@ -60,11 +60,7 @@ const InfoPeople = () => {
           Your People:
           <span className="text-blue-700 ml-1">{people.length}</span>
         </div>
-        <Button
-          variant="outline"
-          className="w-fit flex items-center h-10"
-          onClick={() => setAddPersonOpen(true)}
-        >
+        <Button variant="outline" className="w-fit flex items-center h-10" onClick={() => setAddPersonOpen(true)}>
           Add New Person
         </Button>
         <EditProfileModal

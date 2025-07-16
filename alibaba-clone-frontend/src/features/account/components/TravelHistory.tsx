@@ -1,5 +1,5 @@
-import { Card } from '@/components/ui/card';
-import { TicketOrderSummaryDto } from '@/shared/models/transaction/TicketOrderSummaryDto';
+import { Card } from "@/components/ui/card";
+import { TicketOrderSummaryDto } from "@/shared/models/transaction/TicketOrderSummaryDto";
 
 interface TravelHistoryProps {
   travels: TicketOrderSummaryDto[];

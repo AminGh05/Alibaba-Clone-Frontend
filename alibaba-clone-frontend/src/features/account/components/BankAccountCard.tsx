@@ -14,18 +14,10 @@ const BankAccountCard = ({ bankAccount, onEdit }: BankAccountCardProps) => {
       {bankAccount ? (
         <div>
           {bankAccount.bankAccountNumber && (
-            <div className="text-gray-700">
-              Account Number: {bankAccount.bankAccountNumber}
-            </div>
+            <div className="text-gray-700">Account Number: {bankAccount.bankAccountNumber}</div>
           )}
-          {bankAccount.iban && (
-            <div className="text-gray-700">IBAN: {bankAccount.iban}</div>
-          )}
-          {bankAccount.cardNumber && (
-            <div className="text-gray-700">
-              Card Number: {bankAccount.cardNumber}
-            </div>
-          )}
+          {bankAccount.iban && <div className="text-gray-700">IBAN: {bankAccount.iban}</div>}
+          {bankAccount.cardNumber && <div className="text-gray-700">Card Number: {bankAccount.cardNumber}</div>}
         </div>
       ) : (
         <div className="text-gray-500">No bank account added.</div>
