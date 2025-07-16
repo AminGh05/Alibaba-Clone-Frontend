@@ -1,3 +1,3 @@
 export interface TopUpDto {
-    amount: number;
+  amount: number;
 }
