@@ -1,4 +1,4 @@
-import { FaGithub, FaTelegramPlane, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaTelegramPlane, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -6,9 +6,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-primary text-primary-foreground py-6 px-4 flex flex-col items-center justify-center shadow-lg mt-auto">
       <div className="flex items-center justify-between w-full max-w-4xl mx-auto">
-        <div className="text-sm font-semibold opacity-80">
-          © {currentYear} Alibaba - clone. All Rights Reserved.
-        </div>
+        <div className="text-sm font-semibold opacity-80">© {currentYear} Alibaba - clone. All Rights Reserved.</div>
         <div className="flex gap-4 text-xl">
           <a
             href="https://github.com/AminGh05"

@@ -1,6 +1,6 @@
+import { useAuthStore } from "@/shared/store/authStore";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useAuthStore } from "@/shared/store/authStore";
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -10,9 +10,7 @@ const Header = () => {
       <div className="flex items-center space-x-4">
         <Link to="/" className="flex items-center">
           <img src="/logo.png" alt="Alibaba Logo" className="h-8 w-8" />
-          <span className="ml-2 text-xl font-semibold text-primary">
-            Alibaba
-          </span>
+          <span className="ml-2 text-xl font-semibold text-primary">Alibaba</span>
         </Link>
       </div>
       <div className="flex items-center space-x-2">
@@ -28,11 +26,7 @@ const Header = () => {
         )}
         {user && (
           <>
-            <Button
-              asChild
-              variant="outline"
-              onClick={() => useAuthStore.getState().logout()}
-            >
+            <Button asChild variant="outline" onClick={() => useAuthStore.getState().logout()}>
               <Link to="/">Logout</Link>
             </Button>
             <Button asChild variant="default">
