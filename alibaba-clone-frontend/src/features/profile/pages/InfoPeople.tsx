@@ -7,7 +7,7 @@ import EditProfileModal from "../components/EditProfileModal";
 import { PersonDto } from "@/shared/models/account/PersonDto";
 
 const InfoPeople = () => {
-  const [people, setPeople] = useState<ProfileDto[]>([]);
+  const [people, setPeople] = useState<PersonDto[]>([]);
   const [profile, setProfile] = useState<ProfileDto | null>(null);
   const [loading, setLoading] = useState(true);
   const [addPersonOpen, setAddPersonOpen] = useState(false);
@@ -30,7 +30,7 @@ const InfoPeople = () => {
     fetchPeople();
   }, []);
 
-  const handleAddPerson = async (data: Partial<ProfileDto>) => {
+  const handleAddPerson = async (data: Partial<ProfileDto>, genderId: number) => {
     setError(null);
     try {
       const person: PersonDto = {
@@ -39,7 +39,7 @@ const InfoPeople = () => {
         phoneNumber: data.personPhoneNumber || "",
         birthDate: data.birthDate ? String(data.birthDate) : "",
         idNumber: data.idNumber || "",
-        genderId: 1,
+        genderId: genderId || 1,
       };
 
       await upsertPerson(person);

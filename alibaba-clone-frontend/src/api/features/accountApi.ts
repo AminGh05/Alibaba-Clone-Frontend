@@ -26,7 +26,7 @@ export const upsertBankAccountDetails = async (data: UpsertBankAccountDto) => {
 }
 
 export const getMyPeople = async () => {
-    return await agent.get<ProfileDto[]>("/Account/people");
+    return await agent.get<PersonDto[]>("/Account/people");
 }
 
 export const upsertAccountPerson = async (data: PersonDto) => {

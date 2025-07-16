@@ -42,12 +42,8 @@ const EditProfileModal = ({
     setFirstName(profile?.firstName || "");
     setLastName(profile?.lastName || "");
     setPersonPhoneNumber(profile?.personPhoneNumber || "");
-    setBirthDate(
-      profile?.birthDate ? String(profile.birthDate).slice(0, 10) : ""
-    );
-    setIdNumber(
-      profile && (profile as any).idNumber ? (profile as any).idNumber : ""
-    );
+    setBirthDate(profile?.birthDate ? String(profile.birthDate).slice(0, 10) : "");
+    setIdNumber(profile && (profile as any).idNumber ? (profile as any).idNumber : "");
     setGenderId(1);
   }, [profile]);
 
