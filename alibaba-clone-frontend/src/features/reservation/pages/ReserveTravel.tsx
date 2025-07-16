@@ -1,8 +1,7 @@
-import { getTransportation, getSeats } from "@/api/features/reserveApi";
+import { getTransportation, getSeats, createOrder } from "@/api/features/reserveApi";
 import { getMyPeople } from "@/api/features/accountApi";
 import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
 import { TransportationSeatDto } from "@/shared/models/transportation/TransportationSeatDto";
-import { ProfileDto } from "@/shared/models/account/ProfileDto";
 import { useAuthStore } from "@/shared/store/authStore";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,6 +9,11 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { PersonDto } from "@/shared/models/account/PersonDto";
+import { CreateTravelerTicketDto } from "@/shared/models/transportation/CreateTravelerTicketDto";
+import { CreateTicketOrderDto } from "@/shared/models/transportation/CreateTicketOrderDto";
+import SuccessOrder from "../components/SuccessOrder";
+import FailureOrder from "../components/FailureOrder";
 
 const ReserveTravel = () => {
   const navigate = useNavigate();
@@ -17,17 +21,22 @@ const ReserveTravel = () => {
   const { transportationId } = useParams<{ transportationId: string }>();
   const [details, setDetails] = useState<TransportationSearchResultDto | null>(null);
   const [seats, setSeats] = useState<TransportationSeatDto[]>([]);
-  const [people, setPeople] = useState<ProfileDto[]>([]);
+  const [people, setPeople] = useState<PersonDto[]>([]);
   const [passengers, setPassengers] = useState<any[]>([]);
   const [selectedPersonId, setSelectedPersonId] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [isDone, setIsDone] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (user == null) {
       navigate("/login");
       return;
     }
+    setIsDone(false);
+    setSuccess(false);
     setLoading(true);
+
     // load all from server and make sure all of them are loaded
     Promise.all([getTransportation(Number(transportationId)), getSeats(Number(transportationId)), getMyPeople()])
       .then(([transportRes, seatsRes, peopleRes]) => {
@@ -46,12 +55,15 @@ const ReserveTravel = () => {
   const handleAddPassenger = () => {
     if (!selectedPersonId) return;
 
-    // check if the person is already in passengers
+    // Check if the person is already in passengers
     const person = people.find((p) => p.idNumber === selectedPersonId);
-    if (passengers.includes(person)) return;
+    if (passengers.some((p) => p.person.idNumber === selectedPersonId)) {
+      return;
+    }
 
     const seat = getNextAvailableSeat();
     if (!person || !seat) return;
+
     setPassengers([
       ...passengers,
       {
@@ -67,12 +79,53 @@ const ReserveTravel = () => {
     setPassengers(passengers.filter((_, i) => i !== idx));
   };
 
-  const handlePlaceOrder = () => {
-    
+  const handlePlaceOrder = async () => {
+    console.log("handlePlaceOrder called");
+    const travelers: CreateTravelerTicketDto[] = passengers.map((p) => {
+      const traveler: CreateTravelerTicketDto = {
+        id: p.person.id,
+        idNumber: p.person.idNumber,
+        creatorId: p.person.creatorAccountId,
+        firstName: p.person.firstName,
+        lastName: p.person.lastName,
+        genderId: p.person.genderId,
+        phoneNumber: p.person.phoneNumber,
+        birthDate: p.person.birthDate,
+        isVIP: false,
+      };
+      return traveler;
+    });
+
+    const order: CreateTicketOrderDto = {
+      transportationId: Number(transportationId),
+      travellers: travelers,
+    };
+
+    console.log("Placing order", order);
+    try {
+      const orderId = await createOrder(order);
+      console.log("Order result orderId:", orderId);
+      setIsDone(true);
+      setSuccess(typeof orderId === "number" && orderId > 0);
+      console.log("setIsDone(true) and setSuccess called");
+    } catch (err) {
+      console.error("Error in createOrder:", err);
+      setIsDone(true);
+      setSuccess(false);
+    }
   };
 
   if (loading || !details) {
     return <div className="flex justify-center items-center h-96 text-lg">Loading...</div>;
+  }
+
+  if (isDone) {
+    console.log("isDone is true, success:", success);
+    if (success) {
+      return <SuccessOrder onClose={() => navigate("/profile")}/>;
+    } else {
+      return <FailureOrder onClose={() => setIsDone(false)} />;
+    }
   }
 
   return (
@@ -163,7 +216,6 @@ const ReserveTravel = () => {
                       <td
                         className="px-2 py-1 cursor-pointer hover:underline"
                         onClick={() => handleRemovePassenger(idx)}
-                        title="Remove passenger"
                       >
                         Remove
                       </td>
@@ -179,7 +231,7 @@ const ReserveTravel = () => {
         <span className="text-lg font-semibold">
           Total Price: <span className="text-primary">{details.price * passengers.length} $</span>
         </span>
-        <Button onClick={handlePlaceOrder} className="ml-4">
+        <Button onClick={async () => handlePlaceOrder()} className="ml-4">
           Place Order
         </Button>
       </div>

@@ -13,6 +13,7 @@ const SuccessOrder = ({ onClose }: SuccessOrderProps) => {
       </CardHeader>
       <CardContent className="flex flex-col items-center gap-4">
         <div className="text-green-700 text-lg">Your travel reservation has been placed successfully.</div>
+        To view the detials of your order, check "MyTravels" section
         <Button variant="default" onClick={onClose} className="mt-2">
           OK
         </Button>
