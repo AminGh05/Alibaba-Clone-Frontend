@@ -1,6 +1,6 @@
 import { getTransportation, getSeats } from "@/api/features/reserveApi";
 import { getMyPeople } from "@/api/features/accountApi";
-import { TransportationSearchResult } from "@/shared/models/transportation/TransportationSearchResult";
+import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
 import { TransportationSeatDto } from "@/shared/models/transportation/TransportationSeatDto";
 import { ProfileDto } from "@/shared/models/account/ProfileDto";
 import { useAuthStore } from "@/shared/store/authStore";
@@ -15,7 +15,7 @@ const ReserveTravel = () => {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const { transportationId } = useParams<{ transportationId: string }>();
-  const [details, setDetails] = useState<TransportationSearchResult | null>(null);
+  const [details, setDetails] = useState<TransportationSearchResultDto | null>(null);
   const [seats, setSeats] = useState<TransportationSeatDto[]>([]);
   const [people, setPeople] = useState<ProfileDto[]>([]);
   const [passengers, setPassengers] = useState<any[]>([]);

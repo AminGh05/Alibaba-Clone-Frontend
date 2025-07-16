@@ -1,4 +1,4 @@
-export interface TransportationSearchResult {
+export interface TransportationSearchResultDto {
   id: number;
   companyTitle: string;
   fromLocationTitle: string;

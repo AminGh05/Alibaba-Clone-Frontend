@@ -13,14 +13,14 @@ import CityDropdown from "./CityDropdown";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { searchTransportations } from "@/api/features/homeApi";
-import { TransportationSearchResult } from "@/shared/models/transportation/TransportationSearchResult";
-import { TransportationSearchRequest } from "@/shared/models/transportation/TransportationSearchRequest";
+import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
+import { TransportationSearchRequestDto } from "@/shared/models/transportation/TransportationSearchRequestDto";
 import TransportationCard from "./TransportationCard";
 
 const TransportationSearch = () => {
   const [activeTab, setActiveTab] = useState("flight");
-  const [searchRes, setSearchRes] = useState<TransportationSearchResult[]>([]);
-  const [searchReq, setSearchReq] = useState<TransportationSearchRequest>({
+  const [searchRes, setSearchRes] = useState<TransportationSearchResultDto[]>([]);
+  const [searchReq, setSearchReq] = useState<TransportationSearchRequestDto>({
     vehicleTypeId: 1,
     fromCityId: undefined,
     toCityId: undefined,

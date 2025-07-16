@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { getCities } from "@/api/features/homeApi";
-import { CityResult } from "@/shared/models/city/CityResult";
+import { CityResultDto } from "@/shared/models/city/CityResultDto";
 
 interface CityDropdownProps {
   placeholder: string;
@@ -22,7 +22,7 @@ const CityDropdown = ({
   onChange,
   className,
 }: CityDropdownProps) => {
-  const [cities, setCities] = useState<CityResult[]>([]);
+  const [cities, setCities] = useState<CityResultDto[]>([]);
 
   {
     /* load cities */

@@ -1,11 +1,11 @@
-import { TransportationSearchResult } from "@/shared/models/transportation/TransportationSearchResult";
+import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Calendar, Building, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface TransportationCardProps {
-  transport: TransportationSearchResult;
+  transport: TransportationSearchResultDto;
 }
 
 const TransportationCard = ({ transport }: TransportationCardProps) => {
