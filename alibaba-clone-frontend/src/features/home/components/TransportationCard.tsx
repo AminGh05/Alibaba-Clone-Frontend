@@ -1,8 +1,8 @@
-import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Calendar, Building, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { ArrowRight, Calendar, Building, MapPin } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
 
 interface TransportationCardProps {
   transport: TransportationSearchResultDto;
