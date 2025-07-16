@@ -1,8 +1,8 @@
 import { Card } from "@/components/ui/card";
-import { ProfileDto } from "@/shared/models/account/ProfileDto";
+import { PersonDto } from "@/shared/models/account/PersonDto";
 
 interface PeopleListProps {
-  people: ProfileDto[];
+  people: PersonDto[];
 }
 
 const PeopleList = ({ people }: PeopleListProps) => {
@@ -17,7 +17,7 @@ const PeopleList = ({ people }: PeopleListProps) => {
             <thead>
               <tr className="bg-gray-100">
                 <th className="px-2 py-1 text-left">Name</th>
-                <th className="px-2 py-1 text-left">Email</th>
+                <th className="px-2 py-1 text-left">Id Number</th>
                 <th className="px-2 py-1 text-left">Phone</th>
               </tr>
             </thead>
@@ -25,8 +25,8 @@ const PeopleList = ({ people }: PeopleListProps) => {
               {people.map((person) => (
                 <tr key={person.idNumber} className="border-b">
                   <td className="px-2 py-1">{person.firstName + " " + person.lastName}</td>
-                  <td className="px-2 py-1">{person.email}</td>
-                  <td className="px-2 py-1">{person.personPhoneNumber}</td>
+                  <td className="px-2 py-1">{person.idNumber}</td>
+                  <td className="px-2 py-1">{person.phoneNumber}</td>
                 </tr>
               ))}
             </tbody>

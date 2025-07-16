@@ -1,5 +1,5 @@
-import { Card } from '@/components/ui/card';
-import { TransactionDto } from '@/shared/models/transaction/TransactionDto';
+import { Card } from "@/components/ui/card";
+import { TransactionDto } from "@/shared/models/transaction/TransactionDto";
 
 interface TransactionHistoryProps {
   transactions: TransactionDto[];

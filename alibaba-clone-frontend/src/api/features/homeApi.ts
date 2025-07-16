@@ -1,17 +1,12 @@
-import { CityResult } from "@/shared/models/city/CityResult";
 import agent from "../agent";
-import { TransportationSearchRequest } from "@/shared/models/transportation/TransportationSearchRequest";
-import { TransportationSearchResult } from "@/shared/models/transportation/TransportationSearchResult";
+import { CityResultDto } from "@/shared/models/city/CityResultDto";
+import { TransportationSearchRequestDto } from "@/shared/models/transportation/TransportationSearchRequestDto";
+import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
 
 export const getCities = async () => {
-  return await agent.get<CityResult[]>("/City");
+  return await agent.get<CityResultDto[]>("/City");
 };
 
-export const searchTransportations = async (
-  tsr: TransportationSearchRequest
-) => {
-  return await agent.post<TransportationSearchResult[]>(
-    "/Transportation/search",
-    tsr
-  );
+export const searchTransportations = async (tsr: TransportationSearchRequestDto) => {
+  return await agent.post<TransportationSearchResultDto[]>("/Transportation/search", tsr);
 };

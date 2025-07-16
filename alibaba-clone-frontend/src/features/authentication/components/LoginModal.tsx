@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/shared/store/authStore";
 import { login as loginReq } from "@/api/features/authApi";
-import { LoginRequestDto } from "@/shared/models/authentication/LoginRequestDto";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { LoginRequestDto } from "@/shared/models/authentication/LoginRequestDto";
 
 const LoginModal = () => {
   // use store here
@@ -51,9 +51,7 @@ const LoginModal = () => {
 
   return (
     <div className="bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl w-full max-w-lg p-10 relative transition-all duration-300">
-      <h2 className="text-3xl font-bold mb-8 text-center text-blue-600 tracking-tight">
-        Login
-      </h2>
+      <h2 className="text-3xl font-bold mb-8 text-center text-blue-600 tracking-tight">Login</h2>
       {/* Input form for login */}
       <form
         className="flex flex-col gap-5"
@@ -79,9 +77,7 @@ const LoginModal = () => {
           autoComplete="current-password"
         />
         {error && (
-          <p className="text-red-500 text-sm font-semibold text-center bg-red-50 rounded-lg py-2 px-4 mt-2">
-            {error}
-          </p>
+          <p className="text-red-500 text-sm font-semibold text-center bg-red-50 rounded-lg py-2 px-4 mt-2">{error}</p>
         )}
         <Button
           type="submit"

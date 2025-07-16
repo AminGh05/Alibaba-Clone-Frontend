@@ -1,4 +1,4 @@
-export interface TransportationSearchRequest {
+export interface TransportationSearchRequestDto {
   vehicleTypeId: number;
   fromCityId?: number;
   toCityId?: number;

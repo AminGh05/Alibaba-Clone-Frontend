@@ -1,26 +1,20 @@
-import React, { useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { PlaneTakeoff, Train, Bus } from "lucide-react";
+import { useState } from "react";
+import { searchTransportations } from "@/api/features/homeApi";
 import CityDropdown from "./CityDropdown";
+import TransportationCard from "./TransportationCard";
+import { PlaneTakeoff, Train, Bus } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { searchTransportations } from "@/api/features/homeApi";
-import { TransportationSearchResult } from "@/shared/models/transportation/TransportationSearchResult";
-import { TransportationSearchRequest } from "@/shared/models/transportation/TransportationSearchRequest";
-import TransportationCard from "./TransportationCard";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { TransportationSearchResultDto } from "@/shared/models/transportation/TransportationSearchResultDto";
+import { TransportationSearchRequestDto } from "@/shared/models/transportation/TransportationSearchRequestDto";
 
 const TransportationSearch = () => {
   const [activeTab, setActiveTab] = useState("flight");
-  const [searchRes, setSearchRes] = useState<TransportationSearchResult[]>([]);
-  const [searchReq, setSearchReq] = useState<TransportationSearchRequest>({
+  const [searchRes, setSearchRes] = useState<TransportationSearchResultDto[]>([]);
+  const [searchReq, setSearchReq] = useState<TransportationSearchRequestDto>({
     vehicleTypeId: 1,
     fromCityId: undefined,
     toCityId: undefined,
@@ -47,17 +41,9 @@ const TransportationSearch = () => {
   };
 
   return (
-    <div
-      className="bg-white p-6 rounded-lg shadow"
-      style={{ marginBottom: "5vh" }}
-    >
+    <div className="bg-white p-6 rounded-lg shadow" style={{ marginBottom: "5vh" }}>
       {/* transportation types */}
-      <Tabs
-        defaultValue="flight"
-        value={activeTab}
-        onValueChange={handleTabChange}
-        className="mb-6"
-      >
+      <Tabs defaultValue="flight" value={activeTab} onValueChange={handleTabChange} className="mb-6">
         <TabsList className="w-full">
           <TabsTrigger value="flight" className="flex items-center gap-2">
             <PlaneTakeoff className="h-4 w-4" />
@@ -80,9 +66,7 @@ const TransportationSearch = () => {
           <CityDropdown
             placeholder="From"
             value={searchReq.fromCityId?.toString()}
-            onChange={(value) =>
-              setSearchReq({ ...searchReq, fromCityId: parseInt(value) })
-            }
+            onChange={(value) => setSearchReq({ ...searchReq, fromCityId: parseInt(value) })}
             className="w-full"
           />
         </div>
@@ -90,9 +74,7 @@ const TransportationSearch = () => {
           <CityDropdown
             placeholder="To"
             value={searchReq.toCityId?.toString()}
-            onChange={(value) =>
-              setSearchReq({ ...searchReq, toCityId: parseInt(value) })
-            }
+            onChange={(value) => setSearchReq({ ...searchReq, toCityId: parseInt(value) })}
             className="w-full"
           />
         </div>
@@ -113,9 +95,7 @@ const TransportationSearch = () => {
         <div className="flex-1 min-w-[150px] flex flex-col">
           <DatePicker
             selected={searchReq.endDate}
-            onChange={(date: Date | null) =>
-              setSearchReq((prev) => ({ ...prev, endDate: date ?? undefined }))
-            }
+            onChange={(date: Date | null) => setSearchReq((prev) => ({ ...prev, endDate: date ?? undefined }))}
             placeholderText="End"
             className="w-full h-9 rounded-md border px-3 py-1 text-base shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none"
             dateFormat="MM/dd/yyyy"
@@ -144,9 +124,7 @@ const TransportationSearch = () => {
       {/* search results */}
       {searchRes.length > 0 ? (
         <div className="mt-6">
-          <h3 className="text-lg font-semibold mb-4">
-            Available Transportations
-          </h3>
+          <h3 className="text-lg font-semibold mb-4">Available Transportations</h3>
           <div className="space-y-4">
             {searchRes.map((transport) => (
               <TransportationCard transport={transport} key={transport.id} />

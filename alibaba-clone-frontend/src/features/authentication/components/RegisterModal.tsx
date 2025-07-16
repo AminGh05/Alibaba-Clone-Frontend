@@ -1,10 +1,10 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/shared/store/authStore";
 import { register as registerReq } from "@/api/features/authApi";
-import { RegisterRequestDto } from "@/shared/models/authentication/RegisterRequestDto";
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { RegisterRequestDto } from "@/shared/models/authentication/RegisterRequestDto";
 
 const RegisterModal = () => {
   // here we use store
@@ -78,9 +78,7 @@ const RegisterModal = () => {
 
   return (
     <div className="bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl w-full max-w-lg p-10 relative transition-all duration-300">
-      <h2 className="text-3xl font-bold mb-8 text-center text-blue-600 tracking-tight">
-        Register
-      </h2>
+      <h2 className="text-3xl font-bold mb-8 text-center text-blue-600 tracking-tight">Register</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <Input
           type="text"
@@ -119,9 +117,7 @@ const RegisterModal = () => {
           autoComplete="new-password"
         />
         {error && (
-          <p className="text-red-500 text-sm font-semibold text-center bg-red-50 rounded-lg py-2 px-4 mt-2">
-            {error}
-          </p>
+          <p className="text-red-500 text-sm font-semibold text-center bg-red-50 rounded-lg py-2 px-4 mt-2">{error}</p>
         )}
         <Button
           type="submit"

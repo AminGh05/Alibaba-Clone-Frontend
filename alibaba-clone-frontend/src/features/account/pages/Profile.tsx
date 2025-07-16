@@ -1,14 +1,14 @@
+import { useState } from "react";
 import InfoAccount from "./InfoAccount";
 import InfoPeople from "./InfoPeople";
 import InfoTransactions from "./InfoTransactions";
 import InfoTravels from "./InfoTravels";
-import { useState } from "react";
 
 const tabs = [
   { label: "Account", component: <InfoAccount /> },
   { label: "Transactions", component: <InfoTransactions /> },
   { label: "Travels", component: <InfoTravels /> },
-  { label: "People", component: <InfoPeople /> }
+  { label: "People", component: <InfoPeople /> },
 ];
 
 const Profile = () => {
@@ -21,9 +21,7 @@ const Profile = () => {
             <button
               key={tab.label}
               className={`text-right px-4 py-2 rounded transition font-medium text-base md:text-lg w-full ${
-                selected === idx
-                  ? "bg-blue-100 text-blue-700"
-                  : "hover:bg-gray-100 text-gray-700"
+                selected === idx ? "bg-blue-100 text-blue-700" : "hover:bg-gray-100 text-gray-700"
               }`}
               onClick={() => setSelected(idx)}
               type="button"

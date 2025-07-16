@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import BankAccountCard from "../components/BankAccountCard";
-import { ProfileDto } from "@/shared/models/account/ProfileDto";
-import { UpsertBankAccountDto } from "@/shared/models/account/UpsertBankAccountDto";
-import { PersonDto } from "@/shared/models/account/PersonDto";
-import EditProfileModal from "../components/EditProfileModal";
-import EditEmailModal from "../components/EditEmailModal";
-import EditPasswordModal from "../components/EditPasswordModal";
-import EditBankAccountModal from "../components/EditBankAccountModal";
 import {
   getProfile,
   editEmail,
   editPassword,
   upsertBankAccountDetails,
   upsertAccountPerson,
-} from "@/api/features/profileApi";
+} from "@/api/features/accountApi";
+import BankAccountCard from "../components/BankAccountCard";
+import EditProfileModal from "../components/EditProfileModal";
+import EditEmailModal from "../components/EditEmailModal";
+import EditPasswordModal from "../components/EditPasswordModal";
+import EditBankAccountModal from "../components/EditBankAccountModal";
+import { Button } from "@/components/ui/button";
+import { ProfileDto } from "@/shared/models/account/ProfileDto";
+import { UpsertBankAccountDto } from "@/shared/models/account/UpsertBankAccountDto";
+import { PersonDto } from "@/shared/models/account/PersonDto";
 
 const InfoAccount = () => {
   const [profile, setProfile] = useState<ProfileDto | null>(null);
@@ -57,7 +57,7 @@ const InfoAccount = () => {
         phoneNumber: data.personPhoneNumber ?? (profile as any).phoneNumber ?? "",
         birthDate: data.birthDate ? String(data.birthDate) : (profile as any).birthDate ?? "",
       };
-      
+
       await upsertAccountPerson(person);
       setProfile((prev) => (prev ? { ...prev, ...data } : prev));
       setEditProfileOpen(false);
@@ -75,11 +75,7 @@ const InfoAccount = () => {
       setError("Failed to update email");
     }
   };
-  const handleEditPassword = async (
-    oldPassword: string,
-    newPassword: string,
-    confirmNewPassword: string
-  ) => {
+  const handleEditPassword = async (oldPassword: string, newPassword: string, confirmNewPassword: string) => {
     setError(null);
     try {
       await editPassword({
@@ -94,16 +90,10 @@ const InfoAccount = () => {
   };
   const handleEditBank = async (data: UpsertBankAccountDto) => {
     setError(null);
-    const iban =
-      data.iban && data.iban.trim().length === 0 ? null : data.iban?.trim();
-    const cardNumber =
-      data.cardNumber && data.cardNumber.trim().length === 0
-        ? null
-        : data.cardNumber?.trim();
+    const iban = data.iban && data.iban.trim().length === 0 ? null : data.iban?.trim();
+    const cardNumber = data.cardNumber && data.cardNumber.trim().length === 0 ? null : data.cardNumber?.trim();
     const bankAccountNumber =
-      data.bankAccountNumber && data.bankAccountNumber.trim().length === 0
-        ? null
-        : data.bankAccountNumber?.trim();
+      data.bankAccountNumber && data.bankAccountNumber.trim().length === 0 ? null : data.bankAccountNumber?.trim();
     const normalized: UpsertBankAccountDto = {
       iban: iban || undefined,
       cardNumber: cardNumber || undefined,
@@ -119,17 +109,11 @@ const InfoAccount = () => {
   };
 
   if (loading)
-    return (
-      <div className="flex justify-center items-center h-64 text-gray-500 text-lg font-semibold">
-        Loading...
-      </div>
-    )
+    return <div className="flex justify-center items-center h-64 text-gray-500 text-lg font-semibold">Loading...</div>;
 
   if (!profile)
     return (
-      <div className="flex justify-center items-center h-64 text-red-500 text-lg font-semibold">
-        Profile not found.
-      </div>
+      <div className="flex justify-center items-center h-64 text-red-500 text-lg font-semibold">Profile not found.</div>
     );
 
   return (
@@ -160,9 +144,7 @@ const InfoAccount = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div>
             <div className="font-semibold text-gray-700 mb-1">National ID</div>
-            <div>
-              {profile.idNumber || <span className="text-gray-400">-</span>}
-            </div>
+            <div>{profile.idNumber || <span className="text-gray-400">-</span>}</div>
           </div>
           <div>
             <div className="font-semibold text-gray-700 mb-1">Mobile</div>
@@ -171,22 +153,12 @@ const InfoAccount = () => {
           <div>
             <div className="font-semibold text-gray-700 mb-1">Birth Date</div>
             <div>
-              {profile.birthDate ? (
-                String(profile.birthDate).slice(0, 10)
-              ) : (
-                <span className="text-gray-400">-</span>
-              )}
+              {profile.birthDate ? String(profile.birthDate).slice(0, 10) : <span className="text-gray-400">-</span>}
             </div>
           </div>
           <div>
-            <div className="font-semibold text-gray-700 mb-1">
-              Emergency Contact
-            </div>
-            <div>
-              {profile.personPhoneNumber || (
-                <span className="text-gray-400">-</span>
-              )}
-            </div>
+            <div className="font-semibold text-gray-700 mb-1">Emergency Contact</div>
+            <div>{profile.personPhoneNumber || <span className="text-gray-400">-</span>}</div>
           </div>
         </div>
         {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
@@ -214,10 +186,7 @@ const InfoAccount = () => {
           onSave={handleEditBank}
         />
       </div>
-      <BankAccountCard
-        bankAccount={bankAccount}
-        onEdit={() => setEditBankOpen(true)}
-      />
+      <BankAccountCard bankAccount={bankAccount} onEdit={() => setEditBankOpen(true)} />
     </div>
   );
 };

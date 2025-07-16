@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { getCities } from "@/api/features/homeApi";
-import { CityResult } from "@/shared/models/city/CityResult";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CityResultDto } from "@/shared/models/city/CityResultDto";
 
 interface CityDropdownProps {
   placeholder: string;
@@ -16,13 +10,8 @@ interface CityDropdownProps {
   className?: string;
 }
 
-const CityDropdown = ({
-  placeholder,
-  value,
-  onChange,
-  className,
-}: CityDropdownProps) => {
-  const [cities, setCities] = useState<CityResult[]>([]);
+const CityDropdown = ({ placeholder, value, onChange, className }: CityDropdownProps) => {
+  const [cities, setCities] = useState<CityResultDto[]>([]);
 
   {
     /* load cities */
@@ -47,7 +36,9 @@ const CityDropdown = ({
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem key={null} value="null">*</SelectItem>
+        <SelectItem key={null} value="null">
+          *
+        </SelectItem>
         {/* map cities from api */}
         {cities.map((city) => (
           <SelectItem key={city.id} value={city.id.toString()}>

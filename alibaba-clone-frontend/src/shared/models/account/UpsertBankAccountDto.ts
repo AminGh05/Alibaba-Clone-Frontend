@@ -1,5 +1,5 @@
 export interface UpsertBankAccountDto {
-    iban?: string;
-    bankAccountNumber?: string;
-    cardNumber?: string;
+  iban?: string;
+  bankAccountNumber?: string;
+  cardNumber?: string;
 }

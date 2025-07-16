@@ -1,6 +1,7 @@
-import { getMyTravels } from "@/api/features/profileApi";
-import { TicketOrderSummaryDto } from "@/shared/models/transaction/TicketOrderSummaryDto";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getMyTravels } from "@/api/features/accountApi";
+import { TicketOrderSummaryDto } from "@/shared/models/transaction/TicketOrderSummaryDto";
 
 const InfoTravels = () => {
   const [travels, setTravels] = useState<TicketOrderSummaryDto[]>([]);
@@ -20,6 +21,8 @@ const InfoTravels = () => {
     };
     fetchTravels();
   }, []);
+
+  const navigate = useNavigate();
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
@@ -46,7 +49,11 @@ const InfoTravels = () => {
             </thead>
             <tbody>
               {travels.map((tx) => (
-                <tr key={tx.id} className="border-b hover:bg-gray-50 transition">
+                <tr
+                  key={tx.id}
+                  className="border-b hover:bg-gray-50 transition"
+                  onClick={() => navigate("/travel/" + tx.id)}
+                >
                   <td className="px-2 py-1">{tx.serialNumber}</td>
                   <td className="px-2 py-1">{new Date(tx.boughtAt).toLocaleDateString()}</td>
                   <td className="px-2 py-1">{tx.price.toLocaleString()}</td>
