@@ -26,11 +26,11 @@ const Header = () => {
         )}
         {user && (
           <>
-            <Button asChild variant="outline" onClick={() => useAuthStore.getState().logout()}>
-              <Link to="/">Logout</Link>
-            </Button>
             <Button asChild variant="default">
               <Link to="/profile">Profile</Link>
+            </Button>
+            <Button asChild variant="outline" onClick={() => useAuthStore.getState().logout()}>
+              <Link to="/">Logout</Link>
             </Button>
           </>
         )}
