@@ -51,7 +51,7 @@ const InfoTravels = () => {
               {travels.map((tx) => (
                 <tr
                   key={tx.id}
-                  className="border-b hover:bg-gray-50 transition"
+                  className="border-b cursor-pointer hover:bg-gray-50 transition"
                   onClick={() => navigate("/travel/" + tx.id)}
                 >
                   <td className="px-2 py-1">{tx.serialNumber}</td>
