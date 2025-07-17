@@ -40,11 +40,13 @@ A modern, full-featured travel reservation frontend inspired by Alibaba.ir, buil
 - 🛡️ **Secure API Integration**: JWT authentication, error handling, and protected routes.
 - 🧩 **Modular Architecture**: Feature-based folder structure for scalability and maintainability.
 
----
-
 ## Screenshots
 
-<!-- Add screenshots of the Home page, Search, Reservation, Profile, etc. here if available -->
+<div align="center">
+  <img src="screenshots\SS01.png" alt="Home" />
+  <img src="screenshots\SS02.png" alt="Profile" />
+  <img src="screenshots\SS03.png" alt="Reserve" />
+</div>
 
 ## Project Structure
 
@@ -131,8 +133,6 @@ yarn dev
 ```
 
 Visit [http://localhost:5173](http://localhost:5173) in your browser.
-
----
 
 ## Usage
 
@@ -291,8 +291,6 @@ yarn test
 2. Follow code style (TypeScript, ESLint, Prettier).
 3. Add tests for new features.
 4. Submit a pull request.
-
----
 
 ## License
 
