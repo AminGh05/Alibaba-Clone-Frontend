@@ -8,4 +8,5 @@ export interface TransportationSearchResultDto {
   startDateTime: Date;
   endDateTime: Date;
   price: number;
+  remainingCapacity: number;
 }
