@@ -20,6 +20,7 @@ const TransportationSearch = () => {
     toCityId: undefined,
     startDate: undefined,
     endDate: undefined,
+    passengerCount: 1,
   });
   // loading and error for the time travels are being loaded
   const [loading, setLoading] = useState(false);
@@ -113,7 +114,10 @@ const TransportationSearch = () => {
         </div>
 
         {/* number of passengers */}
-        <Select defaultValue="1">
+        <Select
+          defaultValue="1"
+          onValueChange={(count: string) => setSearchReq((prev) => ({ ...prev, passengerCount: Number(count) ?? 1 }))}
+        >
           <SelectTrigger className="w-[150px]">
             <SelectValue placeholder="Passengers" />
           </SelectTrigger>
@@ -136,7 +140,9 @@ const TransportationSearch = () => {
       )}
 
       {error && (
-        <div className="flex justify-center items-center h-64 text-red-500 text-lg font-semibold">Something went Wrong!</div>
+        <div className="flex justify-center items-center h-64 text-red-500 text-lg font-semibold">
+          Something went Wrong!
+        </div>
       )}
 
       {/* search results */}

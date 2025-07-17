@@ -4,4 +4,5 @@ export interface TransportationSearchRequestDto {
   toCityId?: number;
   startDate?: Date;
   endDate?: Date;
+  passengerCount: number;
 }
