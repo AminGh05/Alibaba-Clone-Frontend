@@ -146,7 +146,7 @@ const TransportationSearch = () => {
       )}
 
       {/* search results */}
-      {searchRes.length > 0 ? (
+      {searchRes.length > 0 && !loading ? (
         <div className="mt-6">
           <h3 className="text-lg font-semibold mb-4">Available Transportations</h3>
           <div className="space-y-4">
