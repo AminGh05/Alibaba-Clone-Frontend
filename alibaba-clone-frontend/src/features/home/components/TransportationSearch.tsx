@@ -20,16 +20,27 @@ const TransportationSearch = () => {
     toCityId: undefined,
     startDate: undefined,
     endDate: undefined,
+    passengerCount: 1,
   });
+  // loading and error for the time travels are being loaded
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setError(false);
+    setLoading(true);
+
     try {
       const response = await searchTransportations(searchReq);
       setSearchRes(response.data);
     } catch (err) {
       console.log("Search Failed:", err);
       setSearchRes([]);
+      setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,7 +114,10 @@ const TransportationSearch = () => {
         </div>
 
         {/* number of passengers */}
-        <Select defaultValue="1">
+        <Select
+          defaultValue="1"
+          onValueChange={(count: string) => setSearchReq((prev) => ({ ...prev, passengerCount: Number(count) ?? 1 }))}
+        >
           <SelectTrigger className="w-[150px]">
             <SelectValue placeholder="Passengers" />
           </SelectTrigger>
@@ -121,8 +135,18 @@ const TransportationSearch = () => {
         </Button>
       </form>
 
+      {loading && (
+        <div className="flex justify-center items-center h-64 text-gray-500 text-lg font-semibold">Loading...</div>
+      )}
+
+      {error && (
+        <div className="flex justify-center items-center h-64 text-red-500 text-lg font-semibold">
+          Something went Wrong!
+        </div>
+      )}
+
       {/* search results */}
-      {searchRes.length > 0 ? (
+      {searchRes.length > 0 && !loading ? (
         <div className="mt-6">
           <h3 className="text-lg font-semibold mb-4">Available Transportations</h3>
           <div className="space-y-4">

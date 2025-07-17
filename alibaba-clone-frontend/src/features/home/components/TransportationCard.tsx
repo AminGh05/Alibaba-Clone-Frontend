@@ -58,10 +58,16 @@ const TransportationCard = ({ transport }: TransportationCardProps) => {
               </div>
             </div>
 
-            {/* company section */}
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <Building className="h-4 w-4" />
-              <span className="text-sm">{transport.companyTitle}</span>
+            <div className="grid grid-cols-2 gap-4">
+              {/* company section */}
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <Building className="h-4 w-4" />
+                <span className="text-sm">{transport.companyTitle}</span>
+              </div>
+              {/* capacity section */}
+              <div>
+                <span className="text-sm text-secondary">Remaining Capacity: {transport.remainingCapacity}</span>
+              </div>
             </div>
           </div>
 

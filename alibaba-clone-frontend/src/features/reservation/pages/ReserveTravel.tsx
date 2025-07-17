@@ -101,10 +101,8 @@ const ReserveTravel = () => {
       travellers: travelers,
     };
 
-    console.log("Placing order", order);
     try {
-      const orderId = await createOrder(order);
-      console.log("Order result orderId:", orderId);
+      const orderId = (await createOrder(order)).data;
       setIsDone(true);
       setSuccess(typeof orderId === "number" && orderId > 0);
       console.log("setIsDone(true) and setSuccess called");
@@ -120,7 +118,6 @@ const ReserveTravel = () => {
   }
 
   if (isDone) {
-    console.log("isDone is true, success:", success);
     if (success) {
       return <SuccessOrder onClose={() => navigate("/profile")} />;
     } else {
