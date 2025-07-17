@@ -6,7 +6,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?logo=vite)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.3-38BDF8?logo=tailwindcss)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache-green)](LICENSE)
 
 A modern, full-featured travel reservation frontend inspired by Alibaba.ir, built with **React**, **TypeScript**, and **Vite**. This project demonstrates best practices in scalable frontend architecture, modular design, and seamless API integration.
 
