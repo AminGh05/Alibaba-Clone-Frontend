@@ -24,7 +24,6 @@ A modern, full-featured travel reservation frontend inspired by Alibaba.ir, buil
 - [State Management](#state-management)
 - [Theming & Styling](#theming--styling)
 - [Routing](#routing)
-- [Testing](#testing)
 - [Contributing](#contributing)
 - [License](#license)
 - [Order of the Phoenix](#order-of-the-phoenix)
@@ -274,18 +273,6 @@ export const useAuthStore = create<AuthState>((set) => ({
   - `/reserve/:transportationId` - Reserve travel
   - `*` - Not found
 
-## Testing
-
-- **Jest** and **React Testing Library** are set up (see `package.json` scripts).
-- Add your test files in `src/` as needed (e.g., `Button.test.tsx`).
-- Run tests with:
-
-```bash
-npm run test
-# or
-yarn test
-```
-
 ## Contributing
 
 1. Fork the repo and create a feature branch.
@@ -295,7 +282,7 @@ yarn test
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+Apache License. See [LICENSE](LICENSE) for details.
 
 ## Order of the Phoenix
 
